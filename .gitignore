@@ -1,0 +1,6 @@
+# Virtual Environment
+venv/
+
+# pycache
+*.pyc
+*__pycache__/*
