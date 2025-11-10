@@ -1,6 +1,30 @@
-# Virtual Environment
+# Virtual environments
 venv/
+.env/
+.venv/
 
-# pycache
+# Python cache
+__pycache__/
 *.pyc
-*__pycache__/*
+*.pyo
+*.pyd
+
+# Pytest cache
+.pytest_cache/
+
+# VSCode settings
+.vscode/
+
+# Logs
+*.log
+
+# Byte-compiled
+*.pyd
+
+# Build / distribution
+build/
+dist/
+*.egg-info/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/

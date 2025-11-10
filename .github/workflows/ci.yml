@@ -3,15 +3,43 @@ name: CI
 on: [push]
 
 jobs:
-  build:
+  job_1:
+    name: Build Project
     runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Install dependencies
-      shell: bash
-      run: pip install -r requirements.txt
 
-    - name: Run tests
-      shell: bash
-      run: pytest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+    
+      - name: Install dependencies
+        shell: bash
+        run: pip install -r requirements.txt
+
+      - name: Run main function
+        shell: bash
+        run: python main.py
+      
+      - name: Upload random numbers file
+        uses: actions/upload-artifact@v4
+        with:
+          name: random_numbers_list
+          path: random_numbers_list.txt
+
+  job_2:
+    name: Add Numbers
+    needs: job_1
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download random numbers file
+        uses: actions/download-artifact@v5
+        with:
+          name: random_numbers_list
+
+      - name: Add numbers in file
+        run: |
+          echo "O resultado das somas foi $(awk '{s+=$1} END {print s}' random_numbers_list.txt)"
